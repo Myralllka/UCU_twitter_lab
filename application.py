@@ -5,6 +5,7 @@ from docs import twurl
 import ssl
 import json
 import sys
+import os
 
 
 # https://apps.twitter.com/
@@ -13,6 +14,7 @@ import sys
 
 def input_account():
     """
+    function to read account name
     :return: account_name if it is not empty, else exit from the application
     """
     account_name = input('Enter Twitter Account:')
@@ -23,7 +25,7 @@ def input_account():
 
 def initial():
     """
-
+    function to create a tmp json file with information from twitter
     """
     account_name = input_account()
     url = twurl.augment(TWITTER_URL, {'screen_name': account_name})
@@ -37,7 +39,7 @@ def initial():
 
 def main_json_travel():
     """
-
+    main function to move up in .json file
     :return: 0 if program finished without errors, -1 if any error occurred
     """
     with open('./tmp/data.json', encoding='utf-8') as ff:
@@ -47,7 +49,8 @@ def main_json_travel():
         try:
             if type(current) == dict:
                 print(' | '.join(list(i for i in current)))
-                current = eval('current' + '[\'' + input('direction: ') + '\']')
+                current = eval('current' + '[\'' +
+                               input('direction: ') + '\']')
             elif type(current) == list:
                 print(' | '.join(list(i['name'] for i in current)))
                 path, c = input('direction: '), 0
@@ -71,3 +74,4 @@ if __name__ == "__main__":
     ctx.verify_mode = ssl.CERT_NONE
     initial()
     main_json_travel()
+    os.system('rm ./tmp/data.json')
