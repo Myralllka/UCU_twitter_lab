@@ -1,3 +1,5 @@
+#!/bin/env python3
+
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -30,8 +32,8 @@ def initial():
     account_name = input_account()
     url = twurl.augment(TWITTER_URL, {'screen_name': account_name})
     connection = urllib.request.urlopen(url, context=ctx)
-    headers = dict(connection.getheaders())
-    print('Remaining', headers['x-rate-limit-remaining'])
+    # headers = dict(connection.getheaders())
+    # print('Remaining', headers['x-rate-limit-remaining'])
     data = connection.read().decode()
     with open('./tmp/data.json', 'w') as out_file:
         print(data, file=out_file)
@@ -63,6 +65,7 @@ def main_json_travel():
                 print(current)
                 return 0
         except KeyError:
+            print('Your input was incorrect!')
             return -1
 
 
@@ -74,4 +77,7 @@ if __name__ == "__main__":
     ctx.verify_mode = ssl.CERT_NONE
     initial()
     main_json_travel()
+    question = input('Do you want to delete the file? (Y/n)')
+    if question == 'n':
+        sys.exit()
     os.system('rm ./tmp/data.json')
