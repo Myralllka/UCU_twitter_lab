@@ -76,7 +76,7 @@ def main_json_travel():
             print('Your input was incorrect!')
             continue
         except KeyboardInterrupt:
-            sys.exit()
+            break
         except:
             print('YOU DID SOMETHING WRONG. TRY ONE MORE TIME')
             continue
