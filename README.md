@@ -1,6 +1,6 @@
-# Twittre_API usage
+# Twittre_API json parse
 
-This application get information about the chosen twitter user in json file and help you to move around it (but only in one way, forward)
+This application get information about the chosen twitter user in json file and help you to move around it.
 
 <h2>Usage<br></h2>
 
