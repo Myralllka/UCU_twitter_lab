@@ -17,4 +17,4 @@ and then type
 ./application.py
 ~~~~
 
- Then print needed Twitter account name and you can see needed part of information about this person
+Then print needed Twitter account name and you can see needed part of information about this person

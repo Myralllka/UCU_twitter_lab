@@ -41,32 +41,45 @@ def initial():
 
 def main_json_travel():
     """
-    main function to move up in .json file
+    main function to move the in .json file
     :return: 0 if program finished without errors, -1 if any error occurred
     """
     with open('./tmp/data.json', encoding='utf-8') as ff:
         data = json.load(fp=ff)
-    current = data
+    path_dict, path_line = dict(), 'current',
+    path_dict[path_line], current, line = data, data, path_line
     while True:
         try:
+            # print possible directories to move
             if type(current) == dict:
                 print(' | '.join(list(i for i in current)))
-                current = eval('current' + '[\'' +
-                               input('direction: ') + '\']')
             elif type(current) == list:
-                print(' | '.join(list(i['name'] for i in current)))
-                path, c = input('direction: '), 0
-                for i in range(len(current)):
-                    if current[i]['name'] == path:
-                        c = i
-                        break
-                current = eval('current' + '[' + str(c) + ']')
+                print(' | '.join(list(str(i) for i in range(len(current)))))
             else:
-                print(current)
-                return 0
+                print('\n' + '-' * 5 + 'EOF' + '-' * 5)
+            input_path = input('print here direction (qq to come back): ')
+            # move back the tree
+            if input_path == 'qq':
+                path_line = ''.join(list(path_line)[:path_line.rindex('[')])
+                current = path_dict[path_line]
+                continue
+            # try to move up the tree
+            try:
+                current = eval(line + '[\'' + input_path + '\']')
+                path_line += '[\'' + input_path + '\']'
+                path_dict[path_line] = current
+            except TypeError:
+                current = eval(line + '[' + input_path + ']')
+                path_line += '[' + input_path + ']'
+                path_dict[path_line] = current
         except KeyError:
             print('Your input was incorrect!')
-            return -1
+            continue
+        except KeyboardInterrupt:
+            sys.exit()
+        except:
+            print('YOU DID SOMETHING WRONG. TRY ONE MORE TIME')
+            continue
 
 
 if __name__ == "__main__":
@@ -76,6 +89,7 @@ if __name__ == "__main__":
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
     initial()
+    print("(Ctrl+C to exit)")
     main_json_travel()
     question = input('Do you want to delete the file? (Y/n)')
     if question == 'n':
