@@ -1,4 +1,4 @@
-# Twittre_API json parse
+# Twitter_API json parse
 
 This application get information about the chosen twitter user in json file and help you to move around it.
 
