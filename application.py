@@ -56,6 +56,7 @@ def main_json_travel():
             elif type(current) == list:
                 print(' | '.join(list(str(i) for i in range(len(current)))))
             else:
+                print(current)
                 print('\n' + '-' * 5 + 'EOF' + '-' * 5)
             input_path = input('print here direction (qq to come back): ')
             # move back the tree
